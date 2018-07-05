@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.longchain.mapper.UserMapper" >
+
+    <resultMap id="BaseMap" type="com.longchain.entity.User" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="open_id" property="openId" jdbcType="VARCHAR" />
+        <result column="passphrase" property="passphrase" jdbcType="VARCHAR" />
+        <result column="payment_keyword" property="paymentKeyword" jdbcType="VARCHAR" />
+        <result column="wallet_address" property="walletAddress" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+        <result column="delete_time" property="deleteTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.longchain.entity.User">
+        insert into `user`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="openId != null">
+                open_id,
+            </if>
+            <if test="passphrase != null">
+                `passphrase`,
+            </if>
+            <if test="paymentKeyword != null">
+                `payment_keyword`,
+            </if>
+            <if test="walletAddress != null">
+                `wallet_address`,
+            </if>
+            <if test="createTime != null">
+                `create_time`,
+            </if>
+            <if test="modifyTime != null">
+                `modify_time`,
+            </if>
+            <if test="deleteTime != null">
+                `delete_time`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="openId != null">
+                #{openId},
+            </if>
+            <if test="passphrase != null">
+                #{passphrase},
+            </if>
+            <if test="paymentKeyword != null">
+                #{paymentKeyword},
+            </if>
+            <if test="walletAddress != null">
+                #{walletAddress},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime},
+            </if>
+            <if test="deleteTime != null">
+                #{deleteTime},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectByOpenId" parameterType="java.lang.String" resultMap="BaseMap">
+        select * from `user` where open_id = #{openId}
+    </select>
+
+    <update id="setPaymentKey">
+        update `user` set `payment_keyword` = #{paymentKey} where open_id = #{openId}
+    </update>
+</mapper>
