@@ -13,5 +13,7 @@ public interface UserService {
 
     ResponseModel sendBag(String openId, String paymentKey, Long totalMoney, Long number, String extraInfo) throws Exception;
 
-    // TODO:getBag 打开糖包
+    ResponseModel openBag(String openId, String targetAddress, Long bagNumber) throws Exception;
+
+    ResponseModel getReceivedMoney(String openId, String targetAddress, Long bagNumber) throws Exception;
 }

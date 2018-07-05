@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/chain-service/chain-service.iml" filepath="$PROJECT_DIR$/chain-service/chain-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/domain/domain.iml" filepath="$PROJECT_DIR$/domain/domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/open-api/open-api.iml" filepath="$PROJECT_DIR$/open-api/open-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/wallet.iml" filepath="$PROJECT_DIR$/wallet.iml" />
     </modules>
   </component>

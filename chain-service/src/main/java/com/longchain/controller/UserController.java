@@ -64,6 +64,7 @@ public class UserController {
 
     /**
      * 获取支付密码
+     *
      * @param openId
      * @return
      */
@@ -76,6 +77,7 @@ public class UserController {
 
     /**
      * 发送交易
+     *
      * @param openId
      * @param paymentKey
      * @param targetAccount
@@ -106,6 +108,7 @@ public class UserController {
 
     /**
      * 发送糖包
+     *
      * @param openId
      * @param paymentKey
      * @param totalMoney
@@ -128,7 +131,47 @@ public class UserController {
         }
     }
 
-//    public ResponseModel getBag()
+    /**
+     * 打开糖包
+     *
+     * @param openId
+     * @param targetAddress
+     * @param bagNumber
+     * @return
+     */
+    @RequestMapping(value = "/openBag", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseModel openBag(@RequestParam(value = "openId", required = true) String openId,
+                                 @RequestParam(value = "targetAddress", required = true) String targetAddress,
+                                 @RequestParam(value = "bagNumber", required = true) String bagNumber) {
+        try {
+            return userService.openBag(openId, targetAddress, Long.parseLong(bagNumber));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseModel(false, 10003, "系统错误");
+        }
+    }
+
+    /**
+     * 获取打开的金额
+     *
+     * @param openId
+     * @param targetAddress
+     * @param bagNumber
+     * @return
+     */
+    @RequestMapping(value = "/getReceivedMoney", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseModel getReceivedMoney(@RequestParam(value = "openId", required = true) String openId,
+                                          @RequestParam(value = "targetAddress", required = true) String targetAddress,
+                                          @RequestParam(value = "bagNumber", required = true) String bagNumber) {
+        try {
+            return userService.getReceivedMoney(openId, targetAddress, Long.parseLong(bagNumber));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseModel(false, 10003, "系统错误");
+        }
+    }
 
     /**
      * 获取token名

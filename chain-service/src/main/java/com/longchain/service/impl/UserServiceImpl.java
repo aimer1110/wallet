@@ -73,4 +73,24 @@ public class UserServiceImpl implements UserService {
         tokenService.sendBag(user.getWalletAddress(), user.getPassphrase(), totalMoney, number, extraInfo);
         return new ResponseModel(true, 10000, "发送成功", num);
     }
+
+    @Override
+    public ResponseModel openBag(String openId, String targetAddress, Long bagNumber) throws Exception {
+        User user = userMapper.selectByOpenId(openId);
+        if (tokenService.isOpened(user.getWalletAddress(), targetAddress, bagNumber)) {
+            return new ResponseModel(false, 10001, "已领过该糖包");
+        }
+        tokenService.openBag(user.getWalletAddress(), targetAddress, bagNumber, user.getPassphrase());
+        return new ResponseModel(true, 10000, "领取成功，请点击刷新金额");
+    }
+
+    @Override
+    public ResponseModel getReceivedMoney(String openId, String targetAddress, Long bagNumber) throws Exception {
+        User user = userMapper.selectByOpenId(openId);
+        Long money = tokenService.getReceivedMoney(user.getWalletAddress(), targetAddress, bagNumber);
+        if (money == 0) {
+            return new ResponseModel(false, 10001, "获取失败，请稍后刷新");
+        }
+        return new ResponseModel(true, 10000, "获取成功", money);
+    }
 }

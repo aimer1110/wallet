@@ -12,4 +12,10 @@ public interface TokenService {
     Long getBagNum(String address) throws Exception;
 
     void sendBag(String address, String passphrase, Long totalMoney, Long num, String extraInfo) throws Exception;
+
+    void openBag(String address, String targetAddress, Long bagNumber, String passphrase) throws Exception;
+
+    Boolean isOpened(String address, String targetAddress, Long bagNumber) throws Exception;
+
+    Long getReceivedMoney(String address, String targetAddress, Long bagNumber) throws Exception;
 }
